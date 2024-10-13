@@ -6,10 +6,15 @@ import order.dto.OrderResponseDTO;
 import java.text.DecimalFormat;
 
 public class OrderView {
+    private static final String START_MESSAGE = "주문하실 메뉴와 수량을 입력해주세요. ex) 피자(2개), 감자튀김(1개), 콜라(3개)";
     private final OutputView outputView;
 
     public OrderView(OutputView outputView) {
         this.outputView = outputView;
+    }
+
+    public void orderStart() {
+        outputView.printlnMessage(START_MESSAGE);
     }
 
     public void printOrderResponse(OrderResponseDTO orderResponseDTO) {
