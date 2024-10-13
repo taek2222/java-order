@@ -11,18 +11,19 @@ import order.dto.OrderServiceResponseDTO;
 import order.validation.OrderValidator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class OrderService {
     private final OrderValidator orderValidator;
+    private final OrderFactory orderFactory;
 
-    public OrderService(OrderValidator orderValidator) {
+    public OrderService(OrderValidator orderValidator, OrderFactory orderFactory) {
         this.orderValidator = orderValidator;
+        this.orderFactory = orderFactory;
     }
 
     public OrderResponseDTO getOrderResponseDTO(List<OrderRequestDTO> orderRequestDTOS) {
-        List<Order> orders = createOrdersByOrderDTOS(orderRequestDTOS);
+        List<Order> orders = orderFactory.createOrdersByOrderDTOS(orderRequestDTOS);
 
         int ordersPrice = calculateOrdersPrice(orders);
         validateOrders(orders, ordersPrice);
@@ -83,24 +84,5 @@ public class OrderService {
                 Product.DUMPLING.getName(),
                 countMainTypeProduct
         );
-    }
-
-    private List<Order> createOrdersByOrderDTOS(List<OrderRequestDTO> orderRequestDTOS) {
-        List<Order> orders = new ArrayList<>();
-
-        for (OrderRequestDTO orderRequestDTO : orderRequestDTOS) {
-            Product product = findProduct(orderRequestDTO.productName());
-            Order order = new Order(product, orderRequestDTO.quantity());
-            orders.add(order);
-        }
-
-        return orders;
-    }
-
-    private Product findProduct(String productName) {
-        return Arrays.stream(Product.values())
-                .filter(product -> product.getName().equals(productName))
-                .findFirst()
-                .orElseThrow();
     }
 }
