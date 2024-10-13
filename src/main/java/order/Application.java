@@ -1,8 +1,11 @@
 package order;
 
+import order.controller.OrderController;
+
 public class Application {
 
     public static void main(String[] args) {
-        // TODO: 미션을 진행하세요.
+        OrderController orderController = new OrderController();
+        orderController.run();
     }
 }
