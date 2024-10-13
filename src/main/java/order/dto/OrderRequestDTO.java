@@ -1,4 +1,7 @@
 package order.dto;
 
-public record OrderRequestDTO(String productName, Integer quantity) {
+public record OrderRequestDTO(
+        String productName,
+        Integer quantity
+) {
 }
