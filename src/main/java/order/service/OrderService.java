@@ -33,7 +33,7 @@ public class OrderService {
             orderValidator.validateProductQuantity(order);
 
             if (order.getProduct().getType() == ProductType.MAIN)
-                countMainTypeProduct++;
+                countMainTypeProduct += order.getQuantity();
 
             int price = order.getOrderPrice();
             orderTotalPrice += price;
@@ -53,6 +53,8 @@ public class OrderService {
     private OrderServiceResponseDTO createOrderServiceResponseDTO(Integer countMainTypeProduct) {
         if (countMainTypeProduct == 0)
             return null;
+
+        System.out.println(countMainTypeProduct + " 갯수임");
 
         return new OrderServiceResponseDTO(
                 Product.DUMPLING.getName(),
