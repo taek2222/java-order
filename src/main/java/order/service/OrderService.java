@@ -23,32 +23,56 @@ public class OrderService {
 
     public OrderResponseDTO getOrderResponseDTO(List<OrderRequestDTO> orderRequestDTOS) {
         List<Order> orders = createOrdersByOrderDTOS(orderRequestDTOS);
-        orderValidator.validateOnlyDrinks(orders);
 
-        int orderTotalPrice = 0;
-        int countMainTypeProduct = 0;
+        int ordersPrice = calculateOrdersPrice(orders);
+        validateOrders(orders, ordersPrice);
+        int deliveryFee = DeliveryFee.getDeliveryFee(ordersPrice);
+        int countMainTypeProduct = countMainTypeProducts(orders);
+        int orderTotalPrice = ordersPrice + deliveryFee;
 
-        List<OrderProductResponseDTO> orderProductResponseDTOList = new ArrayList<>();
-        for (Order order : orders) {
-            orderValidator.validateProductQuantity(order);
-
-            if (order.getProduct().getType() == ProductType.MAIN)
-                countMainTypeProduct += order.getQuantity();
-
-            int price = order.getOrderPrice();
-            orderTotalPrice += price;
-            orderProductResponseDTOList.add(createOrderProductResponseDTO(order, price));
-        }
-        orderValidator.validateMinimumPrice(orderTotalPrice);
-        int deliveryFee = DeliveryFee.getDeliveryFee(orderTotalPrice);
+        List<OrderProductResponseDTO> orderProductResponseDTOList = createOrderProductResponseDTOS(orders);
 
         return new OrderResponseDTO(
                 orderProductResponseDTOList,
-                orderTotalPrice,
+                ordersPrice,
                 deliveryFee,
                 createOrderServiceResponseDTO(countMainTypeProduct),
-                orderTotalPrice + deliveryFee
-                );
+                orderTotalPrice
+        );
+    }
+
+    private List<OrderProductResponseDTO> createOrderProductResponseDTOS(List<Order> orders) {
+        List<OrderProductResponseDTO> orderProductResponseDTOList = new ArrayList<>();
+        for (Order order : orders) {
+            int price = order.getOrderPrice();
+            orderProductResponseDTOList.add(new OrderProductResponseDTO(
+                    order.getProduct().getName(),
+                    order.getQuantity(),
+                    price
+            ));
+        }
+        return orderProductResponseDTOList;
+    }
+
+    private int countMainTypeProducts(List<Order> orders) {
+        return orders.stream()
+                .filter(this::isProductTypeMain)
+                .mapToInt(Order::getQuantity)
+                .sum();
+    }
+
+    private Integer calculateOrdersPrice(List<Order> orders) {
+        return orders.stream().mapToInt(Order::getOrderPrice).sum();
+    }
+
+    private void validateOrders(List<Order> orders, Integer ordersPrice) {
+        orderValidator.validateOnlyDrinks(orders);
+        orderValidator.validateMinimumPrice(ordersPrice);
+        orders.forEach(orderValidator::validateProductQuantity);
+    }
+
+    private boolean isProductTypeMain(Order order) {
+        return order.getProduct().getType() == ProductType.MAIN;
     }
 
     private OrderServiceResponseDTO createOrderServiceResponseDTO(Integer countMainTypeProduct) {
@@ -58,14 +82,6 @@ public class OrderService {
         return new OrderServiceResponseDTO(
                 Product.DUMPLING.getName(),
                 countMainTypeProduct
-        );
-    }
-
-    private OrderProductResponseDTO createOrderProductResponseDTO(Order order, Integer price) {
-        return new OrderProductResponseDTO(
-                order.getProduct().getName(),
-                order.getQuantity(),
-                price
         );
     }
 
