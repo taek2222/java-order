@@ -46,15 +46,14 @@ public class OrderService {
                 orderProductResponseDTOList,
                 orderTotalPrice,
                 deliveryFee,
-                createOrderServiceResponseDTO(countMainTypeProduct)
+                createOrderServiceResponseDTO(countMainTypeProduct),
+                orderTotalPrice + deliveryFee
                 );
     }
 
     private OrderServiceResponseDTO createOrderServiceResponseDTO(Integer countMainTypeProduct) {
         if (countMainTypeProduct == 0)
             return null;
-
-        System.out.println(countMainTypeProduct + " 갯수임");
 
         return new OrderServiceResponseDTO(
                 Product.DUMPLING.getName(),

@@ -4,8 +4,9 @@ import java.util.List;
 
 public record OrderResponseDTO(
     List<OrderProductResponseDTO> orderProductResponseDTOS,
-    Integer orderTotalPrice,
+    Integer ordersPrice,
     Integer delivery,
-    OrderServiceResponseDTO orderServiceResponseDTO
+    OrderServiceResponseDTO orderServiceResponseDTO,
+    Integer orderTotalPrice
     ) {
 }

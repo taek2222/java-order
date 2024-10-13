@@ -17,7 +17,7 @@ public class OrderView {
         for (OrderProductResponseDTO productResponseDTO : orderResponseDTO.orderProductResponseDTOS()) {
             printProduct(productResponseDTO.product(), productResponseDTO.quantity(), productResponseDTO.price());
         }
-        printOrderContent("총 주문 금액", orderResponseDTO.orderTotalPrice());
+        printOrderContent("총 주문 금액", orderResponseDTO.ordersPrice());
         printOrderContent("배달비: ", orderResponseDTO.delivery());
 
         if (orderResponseDTO.orderServiceResponseDTO() != null) {
@@ -27,7 +27,7 @@ public class OrderView {
         }
 
         printTitle("최종 결제 금액");
-        printPrice(orderResponseDTO.orderTotalPrice() + orderResponseDTO.delivery());
+        printPrice(orderResponseDTO.orderTotalPrice());
     }
 
     private void printTitle(String title) {
