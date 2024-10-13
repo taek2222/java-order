@@ -12,6 +12,6 @@ public class OutputView {
 
     public void printLineMessage(String message) {
         System.out.println();
-        System.out.println(message);
+        this.printlnMessage(message);
     }
 }

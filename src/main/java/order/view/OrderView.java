@@ -13,26 +13,49 @@ public class OrderView {
     }
 
     public void printOrderResponse(OrderResponseDTO orderResponseDTO) {
-        DecimalFormat df = new DecimalFormat("#,###");
-
-        outputView.printLineMessage("[주문 내역]");
-
-        for (OrderProductResponseDTO orderProductResponseDTO : orderResponseDTO.orderProductResponseDTOS()) {
-            outputView.printMessage(orderProductResponseDTO.product());
-            outputView.printMessage("(" + orderProductResponseDTO.quantity() + "개): ");
-            outputView.printlnMessage(df.format(orderProductResponseDTO.price()) + "원");
+        printTitle("주문 내역");
+        for (OrderProductResponseDTO productResponseDTO : orderResponseDTO.orderProductResponseDTOS()) {
+            printProduct(productResponseDTO.product(), productResponseDTO.quantity(), productResponseDTO.price());
         }
-
-        outputView.printlnMessage("총 주문 금액: " + df.format(orderResponseDTO.orderTotalPrice()) + "원");
-        outputView.printlnMessage("배달비: " + orderResponseDTO.delivery() + "원");
+        printOrderContent("총 주문 금액", orderResponseDTO.orderTotalPrice());
+        printOrderContent("배달비: ", orderResponseDTO.delivery());
 
         if (orderResponseDTO.orderServiceResponseDTO() != null) {
-            outputView.printLineMessage("[서비스]");
-            outputView.printMessage(orderResponseDTO.orderServiceResponseDTO().product());
-            outputView.printlnMessage("(" + orderResponseDTO.orderServiceResponseDTO().quantity() + "개)");
+            printTitle("서비스");
+            printProduct(orderResponseDTO.orderServiceResponseDTO().product(), orderResponseDTO.orderServiceResponseDTO().quantity());
+            outputView.printlnMessage("");
         }
 
-        outputView.printLineMessage("[최종 결제 금액]");
-        outputView.printlnMessage(df.format(orderResponseDTO.orderTotalPrice() + orderResponseDTO.delivery()) + "원");
+        printTitle("최종 결제 금액");
+        printPrice(orderResponseDTO.orderTotalPrice() + orderResponseDTO.delivery());
+    }
+
+    private void printTitle(String title) {
+        outputView.printLineMessage("[" + title + "]");
+    }
+
+    private void printPrice(Integer price) {
+        DecimalFormat format = new DecimalFormat("#,###");
+        outputView.printlnMessage(format.format(price) + "원");
+    }
+
+    private void printProduct(String product) {
+        outputView.printMessage(product);
+    }
+
+    private void printProduct(String product, Integer quantity) {
+        this.printProduct(product);
+        outputView.printMessage("(" + quantity + "개)");
+    }
+
+    private void printProduct(String product, Integer quantity, Integer price) {
+        this.printProduct(product, quantity);
+        outputView.printMessage(": ");
+        this.printPrice(price);
+    }
+
+    private void printOrderContent(String content, Integer price) {
+        outputView.printMessage(content + ": ");
+        printPrice(price);
     }
 }
