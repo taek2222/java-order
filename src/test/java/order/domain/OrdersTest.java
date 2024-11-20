@@ -44,6 +44,21 @@ class OrdersTest {
     }
 
     @Test
+    void 주문_메뉴의_메인_메뉴_수량을_계산한다() {
+        // given
+        Order test1 = new Order(PIZZA, 1);
+        Order test2 = new Order(CHEESE_STICK, 1);
+        Orders orders = new Orders(List.of(test1, test2));
+
+        // when
+        int result = orders.calculateCountMainMenu();
+
+        // then
+        assertThat(result)
+                .isEqualTo(1);
+    }
+
+    @Test
     void 최소_주문_갯수가_아닌_경우_예외가_발생한다() {
         // given
         List<Order> orders = List.of();
