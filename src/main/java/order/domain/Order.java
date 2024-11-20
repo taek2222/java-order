@@ -20,7 +20,7 @@ public class Order {
         return menu.getPrice() * quantity;
     }
 
-    public boolean isMenuTypeDrink() {
+    public boolean isDrinkMenu() {
         return menu.getMenuType() == DRINK;
     }
 
