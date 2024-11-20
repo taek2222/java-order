@@ -13,6 +13,12 @@ public class Orders {
         this.orders = orders;
     }
 
+    public int calculateCountMainMenu() {
+        return (int) orders.stream()
+                .filter(Order::isMainMenu)
+                .count();
+    }
+
     public int calculateTotalPrice() {
         return orders.stream()
                 .mapToInt(Order::calculatePrice)
