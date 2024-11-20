@@ -1,6 +1,6 @@
 package order.global.validate;
 
-import static order.global.constant.ErrorMessage.INVALID_NUMERIC;
+import static order.global.constant.ErrorMessage.INVALID_ORDER_FORMAT;
 
 public class CommonValidator {
 
@@ -8,7 +8,7 @@ public class CommonValidator {
         try {
             Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(INVALID_NUMERIC.get());
+            throw new IllegalArgumentException(INVALID_ORDER_FORMAT.get());
         }
     }
 }
