@@ -39,4 +39,8 @@ public enum Menu {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_ORDER_FORMAT.get()));
     }
+
+    public MenuType getMenuType() {
+        return menuType;
+    }
 }

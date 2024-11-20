@@ -1,5 +1,6 @@
 package order.domain;
 
+import static order.domain.MenuType.DRINK;
 import static order.global.constant.ErrorMessage.INVALID_ORDER_QUANTITY;
 
 public class Order {
@@ -13,6 +14,10 @@ public class Order {
         validateMinimumQuantity(quantity);
         this.menu = menu;
         this.quantity = quantity;
+    }
+
+    public boolean isMenuTypeDrink() {
+        return menu.getMenuType() == DRINK;
     }
 
     private void validateMinimumQuantity(int quantity) {
