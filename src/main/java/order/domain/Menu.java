@@ -1,0 +1,32 @@
+package order.domain;
+
+import static order.domain.MenuType.DRINK;
+import static order.domain.MenuType.MAIN;
+import static order.domain.MenuType.SIDE;
+
+public enum Menu {
+    // 메인 메뉴
+    PIZZA("피자", 25000, MAIN),
+    HAMBURGER("햄버거", 10000, MAIN),
+    CHICKEN("치킨", 23000, MAIN),
+
+    // 사이드 메뉴
+    FRENCH_FRIES("감자튀김", 5000, SIDE),
+    CHEESE_STICK("치즈스틱", 7000, SIDE),
+    SALAD("샐러드", 8000, SIDE),
+
+    // 음료 메뉴
+    COLA("콜라", 2000, DRINK),
+    ZERO_COLA("제로 콜라", 2500, DRINK),
+    ORANGE_JUICE("오렌지 주스", 3000, DRINK);
+
+    private String name;
+    private int price;
+    private MenuType menuType;
+
+    Menu(String name, int price, MenuType menuType) {
+        this.name = name;
+        this.price = price;
+        this.menuType = menuType;
+    }
+}
