@@ -1,5 +1,6 @@
 package order.domain;
 
+import static order.constant.ErrorMessage.INVALID_ORDER_FORMAT;
 import static order.domain.MenuType.DRINK;
 import static order.domain.MenuType.MAIN;
 import static order.domain.MenuType.SIDE;
@@ -36,6 +37,6 @@ public enum Menu {
         return Arrays.stream(values())
                 .filter(menu -> menu.name.equals(name))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new IllegalArgumentException(INVALID_ORDER_FORMAT.getMessage()));
     }
 }
