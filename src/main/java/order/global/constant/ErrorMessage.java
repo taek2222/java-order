@@ -1,4 +1,4 @@
-package order.constant;
+package order.global.constant;
 
 public enum ErrorMessage {
     INVALID_ORDER_FORMAT("주문 형식이 잘못되었습니다.");

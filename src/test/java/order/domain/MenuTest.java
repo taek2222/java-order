@@ -1,8 +1,8 @@
 package order.domain;
 
-import static order.constant.ErrorMessage.INVALID_ORDER_FORMAT;
 import static order.domain.Menu.PIZZA;
 import static order.domain.Menu.findMenuByName;
+import static order.global.constant.ErrorMessage.INVALID_ORDER_FORMAT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

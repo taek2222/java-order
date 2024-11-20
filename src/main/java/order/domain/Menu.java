@@ -1,9 +1,9 @@
 package order.domain;
 
-import static order.constant.ErrorMessage.INVALID_ORDER_FORMAT;
 import static order.domain.MenuType.DRINK;
 import static order.domain.MenuType.MAIN;
 import static order.domain.MenuType.SIDE;
+import static order.global.constant.ErrorMessage.INVALID_ORDER_FORMAT;
 
 import java.util.Arrays;
 
