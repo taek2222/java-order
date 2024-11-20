@@ -1,12 +1,14 @@
 package order.domain;
 
+import static order.domain.Menu.CHEESE_STICK;
 import static order.domain.Menu.COLA;
 import static order.domain.Menu.PIZZA;
 import static order.global.constant.ErrorMessage.INVALID_ORDERS_MINIMUM;
 import static order.global.constant.ErrorMessage.INVALID_ORDER_ONLY_DRINK;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class OrdersTest {
@@ -22,8 +24,23 @@ class OrdersTest {
         Orders result = new Orders(orders);
 
         // then
-        Assertions.assertThat(result)
+        assertThat(result)
                 .isNotNull();
+    }
+
+    @Test
+    void 주문_메뉴의_가격을_합산해_반환한다() {
+        // given
+        Order test1 = new Order(PIZZA, 1);
+        Order test2 = new Order(CHEESE_STICK, 1);
+        Orders orders = new Orders(List.of(test1, test2));
+
+        // when
+        int result = orders.calculateTotalPrice();
+
+        // then
+        assertThat(result)
+                .isEqualTo(32000);
     }
 
     @Test
@@ -32,7 +49,7 @@ class OrdersTest {
         List<Order> orders = List.of();
 
         // when & then
-        Assertions.assertThatThrownBy(() -> new Orders(orders))
+        assertThatThrownBy(() -> new Orders(orders))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(INVALID_ORDERS_MINIMUM.get());
     }
@@ -44,7 +61,7 @@ class OrdersTest {
         List<Order> orders = List.of(order);
 
         // when & then
-        Assertions.assertThatThrownBy(() -> new Orders(orders))
+        assertThatThrownBy(() -> new Orders(orders))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(INVALID_ORDER_ONLY_DRINK.get());
     }
