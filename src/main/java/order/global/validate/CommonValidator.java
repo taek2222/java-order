@@ -8,7 +8,7 @@ public class CommonValidator {
         try {
             Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(INVALID_NUMERIC.getMessage());
+            throw new IllegalArgumentException(INVALID_NUMERIC.get());
         }
     }
 }

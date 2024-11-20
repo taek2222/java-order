@@ -31,6 +31,6 @@ class MenuTest {
         // when & then
         assertThatThrownBy(() -> findMenuByName(menuName))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(INVALID_ORDER_FORMAT.getMessage());
+                .hasMessage(INVALID_ORDER_FORMAT.get());
     }
 }

@@ -12,7 +12,7 @@ public enum ErrorMessage {
         this.message = message;
     }
 
-    public String getMessage() {
+    public String get() {
         return ERROR_PREFIX + message;
     }
 }
