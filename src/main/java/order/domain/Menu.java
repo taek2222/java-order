@@ -4,6 +4,8 @@ import static order.domain.MenuType.DRINK;
 import static order.domain.MenuType.MAIN;
 import static order.domain.MenuType.SIDE;
 
+import java.util.Arrays;
+
 public enum Menu {
     // 메인 메뉴
     PIZZA("피자", 25000, MAIN),
@@ -28,5 +30,12 @@ public enum Menu {
         this.name = name;
         this.price = price;
         this.menuType = menuType;
+    }
+
+    public static Menu findMenuByName(String name) {
+        return Arrays.stream(values())
+                .filter(menu -> menu.name.equals(name))
+                .findFirst()
+                .orElseThrow();
     }
 }
