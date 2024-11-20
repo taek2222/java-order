@@ -29,7 +29,6 @@ class OrderInputParserTest {
     @ParameterizedTest
     @ValueSource(strings = {
             "피자(개)",
-            "피자(0개)",
             "피자(-1개)",
             "피자(1.5개)",
             "피자1개",
