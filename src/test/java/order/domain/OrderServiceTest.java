@@ -8,14 +8,14 @@ class OrderServiceTest {
     @Test
     void 메인_수량_만큼_서비스를_추가한다() {
         // given
-        int mainMenuCount = 5;
-        OrderService orderService = new OrderService(mainMenuCount);
+        int count = 5;
+        OrderService orderService = new OrderService(count);
 
         // when
-        int result = orderService.getService();
+        int result = orderService.getServiceDumpling();
 
         // then
         Assertions.assertThat(result)
-                .isEqualTo(mainMenuCount);
+                .isEqualTo(count);
     }
 }
