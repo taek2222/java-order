@@ -16,6 +16,10 @@ public class Order {
         this.quantity = quantity;
     }
 
+    public int calculatePrice() {
+        return menu.getPrice() * quantity;
+    }
+
     public boolean isMenuTypeDrink() {
         return menu.getMenuType() == DRINK;
     }

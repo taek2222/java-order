@@ -12,4 +12,10 @@ public class Orders {
         validateOrders(orders);
         this.orders = orders;
     }
+
+    public int calculateTotalPrice() {
+        return orders.stream()
+                .mapToInt(Order::calculatePrice)
+                .sum();
+    }
 }
