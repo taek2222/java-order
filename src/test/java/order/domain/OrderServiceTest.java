@@ -1,5 +1,6 @@
 package order.domain;
 
+import order.domain.dto.ServiceResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,10 +13,10 @@ class OrderServiceTest {
         OrderService orderService = new OrderService(count);
 
         // when
-        int result = orderService.getServiceDumpling();
+        ServiceResponse response = orderService.createServiceResponse();
 
         // then
-        Assertions.assertThat(result)
+        Assertions.assertThat(response.quantity())
                 .isEqualTo(count);
     }
 }

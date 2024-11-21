@@ -13,15 +13,16 @@ import static order.global.constant.ViewMessage.OUTPUT_TOTAL_AMOUNT_MESSAGE;
 import java.text.DecimalFormat;
 import java.util.List;
 import order.domain.dto.OrderResponse;
+import order.domain.dto.ServiceResponse;
 
 public class OutputView {
 
     private static final DecimalFormat PRICE_FORMAT = new DecimalFormat("###,###");
 
-    public void printOrderDetails(List<OrderResponse> orderResponses) {
+    public void printOrderDetails(List<OrderResponse> responses) {
         newLine();
         System.out.println(OUTPUT_ORDER_DETAILS_HEADER.get());
-        orderResponses.forEach(this::printSingleOrderDetail);
+        responses.forEach(this::printSingleOrderDetail);
     }
 
     public void printTotalAmount(int amount) {
@@ -34,10 +35,13 @@ public class OutputView {
         newLine();
     }
 
-    public void printServiceMenu(int quantity) {
+    public void printServiceMenu(ServiceResponse response) {
         newLine();
         System.out.println(OUTPUT_SERVICE_MENU_HEADER.get());
-        System.out.printf(OUTPUT_SERVICE_MENU_MESSAGE.get(quantity));
+        System.out.printf(OUTPUT_SERVICE_MENU_MESSAGE.get(
+                response.menuName(),
+                response.quantity()
+        ));
         newLine();
     }
 
@@ -47,11 +51,11 @@ public class OutputView {
         System.out.printf(OUTPUT_FINAL_AMOUNT_MESSAGE.get(formatPrice(amount)));
     }
 
-    private void printSingleOrderDetail(OrderResponse orderResponse) {
+    private void printSingleOrderDetail(OrderResponse response) {
         System.out.printf(OUTPUT_ORDER_DETAIL_FORMAT.get(
-                orderResponse.menuName(),
-                orderResponse.quantity(),
-                formatPrice(orderResponse.price())
+                response.menuName(),
+                response.quantity(),
+                formatPrice(response.price())
         ));
 
         newLine();

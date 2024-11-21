@@ -9,7 +9,7 @@ public enum ViewMessage {
     OUTPUT_TOTAL_AMOUNT_MESSAGE("총 주문 금액: %s원"),
     OUTPUT_DELIVERY_FEE_MESSAGE("배달비: %s원"),
     OUTPUT_SERVICE_MENU_HEADER("[서비스]"),
-    OUTPUT_SERVICE_MENU_MESSAGE("서비스 만두(%d개)"),
+    OUTPUT_SERVICE_MENU_MESSAGE("서비스 %s(%d개)"),
     OUTPUT_FINAL_AMOUNT_HEADER("[최종 결제 금액]"),
     OUTPUT_FINAL_AMOUNT_MESSAGE("%s원"),
     OUTPUT_ORDER_DETAIL_FORMAT("%s(%d개): %s원"),

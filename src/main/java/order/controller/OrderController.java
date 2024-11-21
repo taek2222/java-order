@@ -6,6 +6,7 @@ import order.domain.OrderResult;
 import order.domain.OrderService;
 import order.domain.Orders;
 import order.domain.dto.OrderResponse;
+import order.domain.dto.ServiceResponse;
 import order.global.util.OrderInputParser;
 import order.view.InputView;
 import order.view.OutputView;
@@ -39,9 +40,9 @@ public class OrderController {
         int deliveryFee = orderResult.getDeliveryFee();
         outputView.printDeliveryFee(deliveryFee);
 
-        int serviceDumpling = orderService.getServiceDumpling();
+        ServiceResponse response = orderService.createServiceResponse();
         if (orderService.isService()) {
-            outputView.printServiceMenu(serviceDumpling);
+            outputView.printServiceMenu(response);
         }
 
         int finalAmount = orderResult.calculateFinalAmount();
