@@ -13,11 +13,13 @@ import order.domain.Order;
 
 public class OrderInputParser {
 
+    private static final String ORDERS_DELIMITER = ",";
     private static final String ORDER_PATTERN = "^([가-힣\\s]+)\\((\\d+)개\\)$";
+    private static final int ORDER_MATCHER_COUNT = 2;
     private static final Pattern PATTERN = Pattern.compile(ORDER_PATTERN);
 
     public static List<Order> parseOrderInput(String input) {
-        return Arrays.stream(input.split(","))
+        return Arrays.stream(input.split(ORDERS_DELIMITER))
                 .map(OrderInputParser::parseOrderElement)
                 .toList();
     }
@@ -38,7 +40,7 @@ public class OrderInputParser {
     }
 
     private static void validateMatcher(Matcher matcher) {
-        if (!matcher.find() || matcher.groupCount() != 2) {
+        if (!matcher.find() || matcher.groupCount() != ORDER_MATCHER_COUNT) {
             throw new IllegalArgumentException(INVALID_ORDER_FORMAT.get());
         }
     }
