@@ -31,4 +31,18 @@ class OrderResultTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(INVALID_ORDER_MINIMUM_AMOUNT.get());
     }
+
+    @ParameterizedTest
+    @CsvSource({"35000, 37000", "75000", "76000", "100000, 100000"})
+    void 최종_금액을_정상적으로_계산한다(int amount, int expected) {
+        // given
+        OrderResult orderResult = new OrderResult(amount);
+
+        // when
+        int result = orderResult.calculateFinalAmount();
+
+        // then
+        assertThat(result)
+                .isEqualTo(expected);
+    }
 }
