@@ -4,6 +4,8 @@ import static order.domain.MenuType.DRINK;
 import static order.domain.MenuType.MAIN;
 import static order.global.constant.ErrorMessage.INVALID_ORDER_QUANTITY;
 
+import order.domain.dto.OrderResponse;
+
 public class Order {
 
     private static final int MAXIMUM_QUANTITY = 10;
@@ -27,6 +29,14 @@ public class Order {
 
     public boolean isMainMenu() {
         return menu.getMenuType() == MAIN;
+    }
+
+    public OrderResponse createOrderResponse() {
+        return new OrderResponse(
+                menu.getName(),
+                quantity,
+                calculatePrice()
+        );
     }
 
     private void validateMinimumQuantity(int quantity) {
