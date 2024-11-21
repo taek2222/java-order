@@ -46,5 +46,7 @@ public class OrderController {
 
         int finalAmount = orderResult.calculateFinalAmount();
         outputView.printFinalResultPrice(finalAmount);
+
+        inputView.closeScanner();
     }
 }
