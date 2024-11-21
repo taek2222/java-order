@@ -3,6 +3,7 @@ package order.domain;
 import static order.global.validate.OrdersValidator.validateOrders;
 
 import java.util.List;
+import order.domain.dto.OrderResponse;
 
 public class Orders {
 
@@ -23,5 +24,11 @@ public class Orders {
         return orders.stream()
                 .mapToInt(Order::calculatePrice)
                 .sum();
+    }
+
+    public List<OrderResponse> createOrderResponses() {
+        return orders.stream()
+                .map(Order::createOrderResponse)
+                .toList();
     }
 }
