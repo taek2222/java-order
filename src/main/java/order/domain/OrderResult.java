@@ -14,7 +14,7 @@ public class OrderResult {
     private final int totalAmount;
     private final int deliveryFee;
 
-    public OrderResult(int totalAmount) {
+    public OrderResult(final int totalAmount) {
         validateAmount(totalAmount);
         this.totalAmount = totalAmount;
         this.deliveryFee = calculateDeliveryFee();
@@ -32,7 +32,7 @@ public class OrderResult {
         return totalAmount + deliveryFee;
     }
 
-    private void validateAmount(int amount) {
+    private void validateAmount(final int amount) {
         if (amount < ORDER_MINIMUM_AMOUNT) {
             throw new IllegalArgumentException(INVALID_ORDER_MINIMUM_AMOUNT.get());
         }

@@ -13,7 +13,7 @@ public class Order {
     private final Menu menu;
     private final int quantity;
 
-    public Order(Menu menu, int quantity) {
+    public Order(final Menu menu, final int quantity) {
         validateQuantity(quantity);
         this.menu = menu;
         this.quantity = quantity;
@@ -42,7 +42,7 @@ public class Order {
         );
     }
 
-    private void validateQuantity(int quantity) {
+    private void validateQuantity(final int quantity) {
         if (quantity > MAXIMUM_QUANTITY) {
             throw new IllegalArgumentException(INVALID_ORDER_QUANTITY.get(MAXIMUM_QUANTITY));
         }

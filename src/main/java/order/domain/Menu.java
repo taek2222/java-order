@@ -27,17 +27,17 @@ public enum Menu {
     // 서비스 메뉴
     DUMPLING("만두", 0, SERVICE);
 
-    private String name;
-    private int price;
-    private MenuType menuType;
+    private final String name;
+    private final int price;
+    private final MenuType menuType;
 
-    Menu(String name, int price, MenuType menuType) {
+    Menu(final String name, final int price, final MenuType menuType) {
         this.name = name;
         this.price = price;
         this.menuType = menuType;
     }
 
-    public static Menu findMenuByName(String name) {
+    public static Menu findMenuByName(final String name) {
         return Arrays.stream(values())
                 .filter(menu -> menu.name.equals(name))
                 .findFirst()

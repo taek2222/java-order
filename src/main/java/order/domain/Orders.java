@@ -9,7 +9,7 @@ public class Orders {
 
     private final List<Order> orders;
 
-    public Orders(List<Order> orders) {
+    public Orders(final List<Order> orders) {
         validateOrders(orders);
         this.orders = orders;
     }

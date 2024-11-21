@@ -12,7 +12,7 @@ public class ServiceMenu {
     private final Menu menu;
     private final int quantity;
 
-    public ServiceMenu(int quantity) {
+    public ServiceMenu(final int quantity) {
         this.menu = SERVICE_MENU;
         this.quantity = quantity;
     }

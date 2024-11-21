@@ -18,13 +18,13 @@ public class OrderInputParser {
     private static final int ORDER_MATCHER_COUNT = 2;
     private static final Pattern PATTERN = Pattern.compile(ORDER_PATTERN);
 
-    public static List<Order> parseOrderInput(String input) {
+    public static List<Order> parseOrderInput(final String input) {
         return Arrays.stream(input.split(ORDERS_DELIMITER))
                 .map(OrderInputParser::parseOrderElement)
                 .toList();
     }
 
-    private static Order parseOrderElement(String element) {
+    private static Order parseOrderElement(final String element) {
         Matcher matcher = PATTERN.matcher(element.trim());
         validateMatcher(matcher);
 
@@ -34,18 +34,18 @@ public class OrderInputParser {
         return createOrder(menu, quantity);
     }
 
-    private static int parseQuantity(String matcher) {
+    private static int parseQuantity(final String matcher) {
         validateIsNumeric(matcher);
         return Integer.parseInt(matcher);
     }
 
-    private static void validateMatcher(Matcher matcher) {
+    private static void validateMatcher(final Matcher matcher) {
         if (!matcher.find() || matcher.groupCount() != ORDER_MATCHER_COUNT) {
             throw new IllegalArgumentException(INVALID_ORDER_FORMAT.get());
         }
     }
 
-    private static Order createOrder(Menu menu, int quantity) {
+    private static Order createOrder(final Menu menu, final int quantity) {
         return new Order(menu, quantity);
     }
 }
