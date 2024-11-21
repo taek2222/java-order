@@ -1,5 +1,7 @@
 package order.domain;
 
+import static order.domain.Menu.PIZZA;
+
 import order.global.constant.ErrorMessage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,7 +14,7 @@ class OrderTest {
         int quantity = 11;
 
         // when & then
-        Assertions.assertThatThrownBy(() -> new Order(Menu.PIZZA, quantity))
+        Assertions.assertThatThrownBy(() -> new Order(PIZZA, quantity))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorMessage.INVALID_ORDER_QUANTITY.get(10));
     }

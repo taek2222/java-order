@@ -14,16 +14,16 @@ public class Order {
     private final int quantity;
 
     public Order(Menu menu, int quantity) {
-        validateMinimumQuantity(quantity);
+        validateQuantity(quantity);
         this.menu = menu;
         this.quantity = quantity;
     }
 
-    public int calculatePrice() {
+    public int calculateAmount() {
         return menu.getPrice() * quantity;
     }
 
-    public boolean isDrinkMenu() {
+    public boolean isDrink() {
         return menu.getMenuType() == DRINK;
     }
 
@@ -34,15 +34,15 @@ public class Order {
         return 0;
     }
 
-    public OrderResponse createOrderResponse() {
+    public OrderResponse createResponse() {
         return new OrderResponse(
                 menu.getName(),
                 quantity,
-                calculatePrice()
+                calculateAmount()
         );
     }
 
-    private void validateMinimumQuantity(int quantity) {
+    private void validateQuantity(int quantity) {
         if (quantity > MAXIMUM_QUANTITY) {
             throw new IllegalArgumentException(INVALID_ORDER_QUANTITY.get(MAXIMUM_QUANTITY));
         }

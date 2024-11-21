@@ -23,7 +23,7 @@ public class OrdersValidator {
 
     private static void validateOnlyMenuTypeDrink(List<Order> orders) {
         boolean hasNonDrink = orders.stream()
-                .anyMatch(order -> !order.isDrinkMenu());
+                .anyMatch(order -> !order.isDrink());
 
         if (!hasNonDrink) {
             throw new IllegalArgumentException(INVALID_ORDER_ONLY_DRINK.get());

@@ -28,7 +28,7 @@ public class Orders {
 
     public List<OrderResponse> toOrderResponses() {
         return orders.stream()
-                .map(Order::createOrderResponse)
+                .map(Order::createResponse)
                 .toList();
     }
 }
