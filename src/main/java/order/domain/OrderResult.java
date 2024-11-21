@@ -15,8 +15,16 @@ public class OrderResult {
         this.deliveryFee = calculateDeliveryFee();
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
     public int getDeliveryFee() {
         return deliveryFee;
+    }
+
+    public int calculateFinalAmount() {
+        return amount + deliveryFee;
     }
 
     private void validateAmount(int amount) {
