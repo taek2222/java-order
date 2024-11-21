@@ -10,4 +10,8 @@ public class InputView {
         System.out.println(INPUT_ORDER_MENU_MESSAGE);
         return SCANNER.nextLine();
     }
+
+    public void closeScanner() {
+        SCANNER.close();
+    }
 }
