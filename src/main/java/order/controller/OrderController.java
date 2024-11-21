@@ -34,7 +34,7 @@ public class OrderController {
         List<OrderResponse> responses = orders.toOrderResponses();
         outputView.printOrderDetails(responses);
 
-        int resultAmount = orderResult.getAmount();
+        int resultAmount = orderResult.getTotalAmount();
         outputView.printTotalAmount(resultAmount);
 
         int deliveryFee = orderResult.getDeliveryFee();
