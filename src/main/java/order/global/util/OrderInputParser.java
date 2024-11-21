@@ -13,7 +13,7 @@ import order.domain.Order;
 
 public class OrderInputParser {
 
-    private static final String ORDER_PATTERN = "^([가-힣]+)\\((\\d+)개\\)$";
+    private static final String ORDER_PATTERN = "^([가-힣\\s]+)\\((\\d+)개\\)$";
     private static final Pattern PATTERN = Pattern.compile(ORDER_PATTERN);
 
     public static List<Order> parseOrderInput(String input) {
