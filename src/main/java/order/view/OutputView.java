@@ -55,7 +55,7 @@ public class OutputView {
         System.out.printf(OUTPUT_ORDER_DETAIL_FORMAT.get(
                 response.menuName(),
                 response.quantity(),
-                formatPrice(response.price())
+                formatPrice(response.amount())
         ));
 
         newLine();
