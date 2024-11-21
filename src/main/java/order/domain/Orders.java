@@ -15,9 +15,9 @@ public class Orders {
     }
 
     public int calculateCountMainMenu() {
-        return (int) orders.stream()
-                .filter(Order::isMainMenu)
-                .count();
+        return orders.stream()
+                .mapToInt(Order::getQuantityIfMainMenu)
+                .sum();
     }
 
     public int calculateTotalPrice() {

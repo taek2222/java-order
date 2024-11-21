@@ -27,8 +27,11 @@ public class Order {
         return menu.getMenuType() == DRINK;
     }
 
-    public boolean isMainMenu() {
-        return menu.getMenuType() == MAIN;
+    public int getQuantityIfMainMenu() {
+        if (menu.getMenuType() == MAIN) {
+            return quantity;
+        }
+        return 0;
     }
 
     public OrderResponse createOrderResponse() {
