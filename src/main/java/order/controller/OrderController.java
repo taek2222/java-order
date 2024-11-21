@@ -3,8 +3,8 @@ package order.controller;
 import java.util.List;
 import order.domain.Order;
 import order.domain.OrderResult;
-import order.domain.OrderService;
 import order.domain.Orders;
+import order.domain.ServiceMenu;
 import order.domain.dto.OrderResponse;
 import order.domain.dto.ServiceResponse;
 import order.global.util.OrderInputParser;
@@ -29,7 +29,7 @@ public class OrderController {
         OrderResult orderResult = new OrderResult(amount);
 
         int count = orders.calculateCountMainMenu();
-        OrderService orderService = new OrderService(count);
+        ServiceMenu orderService = new ServiceMenu(count);
 
         List<OrderResponse> responses = orders.createOrderResponses();
         outputView.printOrderDetails(responses);
@@ -40,8 +40,8 @@ public class OrderController {
         int deliveryFee = orderResult.getDeliveryFee();
         outputView.printDeliveryFee(deliveryFee);
 
-        ServiceResponse response = orderService.createServiceResponse();
-        if (orderService.isService()) {
+        ServiceResponse response = orderService.createResponse();
+        if (orderService.hasServiceQuantity()) {
             outputView.printServiceMenu(response);
         }
 
