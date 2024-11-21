@@ -40,7 +40,9 @@ public class OrderController {
         outputView.printDeliveryFee(deliveryFee);
 
         int serviceDumpling = orderService.getServiceDumpling();
-        outputView.printServiceMenu(serviceDumpling);
+        if (orderService.isService()) {
+            outputView.printServiceMenu(serviceDumpling);
+        }
 
         int finalAmount = orderResult.calculateFinalAmount();
         outputView.printFinalResultPrice(finalAmount);

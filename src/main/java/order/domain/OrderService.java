@@ -11,4 +11,8 @@ public class OrderService {
     public int getServiceDumpling() {
         return serviceDumpling;
     }
+
+    public boolean isService() {
+        return serviceDumpling != 0;
+    }
 }
