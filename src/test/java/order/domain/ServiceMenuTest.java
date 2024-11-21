@@ -1,5 +1,6 @@
 package order.domain;
 
+import static order.domain.Menu.DUMPLING;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import order.domain.dto.ServiceResponse;
@@ -30,7 +31,7 @@ class ServiceMenuTest {
         ServiceResponse response = serviceMenu.createResponse();
 
         // then
-        assertThat(response.menuName()).isEqualTo(Menu.DUMPLING);
+        assertThat(response.menuName()).isEqualTo(DUMPLING.getName());
         assertThat(response.quantity()).isEqualTo(quantity);
     }
 
