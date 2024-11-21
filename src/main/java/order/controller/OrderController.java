@@ -31,10 +31,10 @@ public class OrderController {
         OrderService orderService = new OrderService(count);
 
         List<OrderResponse> responses = orders.createOrderResponses();
-        outputView.printOrdersInfo(responses);
+        outputView.printOrderDetails(responses);
 
         int resultAmount = orderResult.getAmount();
-        outputView.printAmount(resultAmount);
+        outputView.printTotalAmount(resultAmount);
 
         int deliveryFee = orderResult.getDeliveryFee();
         outputView.printDeliveryFee(deliveryFee);
@@ -45,7 +45,7 @@ public class OrderController {
         }
 
         int finalAmount = orderResult.calculateFinalAmount();
-        outputView.printFinalResultPrice(finalAmount);
+        outputView.printFinalAmount(finalAmount);
 
         inputView.closeScanner();
     }

@@ -2,10 +2,10 @@ package order.view;
 
 import static order.global.constant.ViewMessage.NEW_LINE;
 import static order.global.constant.ViewMessage.OUTPUT_DELIVERY_FEE_MESSAGE;
-import static order.global.constant.ViewMessage.OUTPUT_FINAL_RESULT_PRICE_HEADER;
-import static order.global.constant.ViewMessage.OUTPUT_FINAL_RESULT_PRICE_MESSAGE;
-import static order.global.constant.ViewMessage.OUTPUT_ORDER_INFO_FORMAT;
-import static order.global.constant.ViewMessage.OUTPUT_ORDER_INFO_HEADER;
+import static order.global.constant.ViewMessage.OUTPUT_FINAL_AMOUNT_HEADER;
+import static order.global.constant.ViewMessage.OUTPUT_FINAL_AMOUNT_MESSAGE;
+import static order.global.constant.ViewMessage.OUTPUT_ORDER_DETAILS_HEADER;
+import static order.global.constant.ViewMessage.OUTPUT_ORDER_DETAIL_FORMAT;
 import static order.global.constant.ViewMessage.OUTPUT_SERVICE_MENU_HEADER;
 import static order.global.constant.ViewMessage.OUTPUT_SERVICE_MENU_MESSAGE;
 import static order.global.constant.ViewMessage.OUTPUT_TOTAL_AMOUNT_MESSAGE;
@@ -18,19 +18,19 @@ public class OutputView {
 
     private static final DecimalFormat PRICE_FORMAT = new DecimalFormat("###,###");
 
-    public void printOrdersInfo(List<OrderResponse> orderResponses) {
+    public void printOrderDetails(List<OrderResponse> orderResponses) {
         newLine();
-        System.out.println(OUTPUT_ORDER_INFO_HEADER.get());
-        orderResponses.forEach(this::printOrderInfo);
+        System.out.println(OUTPUT_ORDER_DETAILS_HEADER.get());
+        orderResponses.forEach(this::printSingleOrderDetail);
     }
 
-    public void printAmount(int amount) {
-        System.out.printf(OUTPUT_TOTAL_AMOUNT_MESSAGE.get(priceFormat(amount)));
+    public void printTotalAmount(int amount) {
+        System.out.printf(OUTPUT_TOTAL_AMOUNT_MESSAGE.get(formatPrice(amount)));
         newLine();
     }
 
     public void printDeliveryFee(int deliveryFee) {
-        System.out.printf(OUTPUT_DELIVERY_FEE_MESSAGE.get(priceFormat(deliveryFee)));
+        System.out.printf(OUTPUT_DELIVERY_FEE_MESSAGE.get(formatPrice(deliveryFee)));
         newLine();
     }
 
@@ -41,20 +41,24 @@ public class OutputView {
         newLine();
     }
 
-    public void printFinalResultPrice(int price) {
+    public void printFinalAmount(int amount) {
         newLine();
-        System.out.println(OUTPUT_FINAL_RESULT_PRICE_HEADER.get());
-        System.out.printf(OUTPUT_FINAL_RESULT_PRICE_MESSAGE.get(priceFormat(price)));
+        System.out.println(OUTPUT_FINAL_AMOUNT_HEADER.get());
+        System.out.printf(OUTPUT_FINAL_AMOUNT_MESSAGE.get(formatPrice(amount)));
     }
 
-    private void printOrderInfo(OrderResponse orderResponse) {
-        System.out.printf(OUTPUT_ORDER_INFO_FORMAT.get(orderResponse.menuName(), orderResponse.quantity(),
-                priceFormat(orderResponse.price())));
+    private void printSingleOrderDetail(OrderResponse orderResponse) {
+        System.out.printf(OUTPUT_ORDER_DETAIL_FORMAT.get(
+                orderResponse.menuName(),
+                orderResponse.quantity(),
+                formatPrice(orderResponse.price())
+        ));
+
         newLine();
     }
 
-    private static String priceFormat(int amount) {
-        return PRICE_FORMAT.format(amount);
+    private static String formatPrice(int price) {
+        return PRICE_FORMAT.format(price);
     }
 
     private void newLine() {
