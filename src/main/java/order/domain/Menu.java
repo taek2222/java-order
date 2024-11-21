@@ -2,6 +2,7 @@ package order.domain;
 
 import static order.domain.MenuType.DRINK;
 import static order.domain.MenuType.MAIN;
+import static order.domain.MenuType.SERVICE;
 import static order.domain.MenuType.SIDE;
 import static order.global.constant.ErrorMessage.INVALID_ORDER_FORMAT;
 
@@ -21,7 +22,10 @@ public enum Menu {
     // 음료 메뉴
     COLA("콜라", 2000, DRINK),
     ZERO_COLA("제로 콜라", 2500, DRINK),
-    ORANGE_JUICE("오렌지 주스", 3000, DRINK);
+    ORANGE_JUICE("오렌지 주스", 3000, DRINK),
+
+    // 서비스 메뉴
+    DUMPLING("만두", 0, SERVICE);
 
     private String name;
     private int price;
