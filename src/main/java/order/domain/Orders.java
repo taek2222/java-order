@@ -14,19 +14,19 @@ public class Orders {
         this.orders = orders;
     }
 
-    public int calculateCountMainMenu() {
+    public int getTotalMainMenuQuantity() {
         return orders.stream()
                 .mapToInt(Order::getQuantityIfMainMenu)
                 .sum();
     }
 
-    public int calculateTotalPrice() {
+    public int getTotalAmount() {
         return orders.stream()
-                .mapToInt(Order::calculatePrice)
+                .mapToInt(Order::calculateAmount)
                 .sum();
     }
 
-    public List<OrderResponse> createOrderResponses() {
+    public List<OrderResponse> toOrderResponses() {
         return orders.stream()
                 .map(Order::createOrderResponse)
                 .toList();

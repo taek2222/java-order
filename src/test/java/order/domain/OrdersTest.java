@@ -36,7 +36,7 @@ class OrdersTest {
         Orders orders = new Orders(List.of(test1, test2));
 
         // when
-        int result = orders.calculateTotalPrice();
+        int result = orders.getTotalAmount();
 
         // then
         assertThat(result)
@@ -51,7 +51,7 @@ class OrdersTest {
         Orders orders = new Orders(List.of(test1, test2));
 
         // when
-        int result = orders.calculateCountMainMenu();
+        int result = orders.getTotalMainMenuQuantity();
 
         // then
         assertThat(result)

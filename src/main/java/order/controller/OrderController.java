@@ -25,13 +25,13 @@ public class OrderController {
         List<Order> parsedOrders = OrderInputParser.parseOrderInput(orderInput);
         Orders orders = new Orders(parsedOrders);
 
-        int amount = orders.calculateTotalPrice();
+        int amount = orders.getTotalAmount();
         OrderResult orderResult = new OrderResult(amount);
 
-        int count = orders.calculateCountMainMenu();
+        int count = orders.getTotalMainMenuQuantity();
         ServiceMenu orderService = new ServiceMenu(count);
 
-        List<OrderResponse> responses = orders.createOrderResponses();
+        List<OrderResponse> responses = orders.toOrderResponses();
         outputView.printOrderDetails(responses);
 
         int resultAmount = orderResult.getAmount();
