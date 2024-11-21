@@ -21,33 +21,65 @@ public class OrderController {
     }
 
     public void run() {
-        String orderInput = inputView.readOrderMenu();
-        List<Order> parsedOrders = OrderInputParser.parseOrderInput(orderInput);
-        Orders orders = new Orders(parsedOrders);
+        Orders orders = generateOrders();
+        OrderResult orderResult = generateOrderResult(orders);
+        ServiceMenu serviceMenu = generateServiceMenu(orders);
 
-        int amount = orders.getTotalAmount();
-        OrderResult orderResult = new OrderResult(amount);
+        displayOrderSummary(orders, orderResult, serviceMenu);
 
-        int count = orders.getTotalMainMenuQuantity();
-        ServiceMenu orderService = new ServiceMenu(count);
+        inputView.closeScanner();
+    }
 
-        List<OrderResponse> responses = orders.toOrderResponses();
-        outputView.printOrderDetails(responses);
+    private void displayOrderSummary(Orders orders, OrderResult orderResult, ServiceMenu serviceMenu) {
+        displayOrderDetails(orders);
+        displayTotalAmount(orderResult);
+        displayDeliveryFee(orderResult);
+        displayServiceMenu(serviceMenu);
+        displayFinalAmount(orderResult);
+    }
 
-        int resultAmount = orderResult.getTotalAmount();
-        outputView.printTotalAmount(resultAmount);
+    private void displayFinalAmount(OrderResult orderResult) {
+        int finalAmount = orderResult.calculateFinalAmount();
+        outputView.printFinalAmount(finalAmount);
+    }
 
-        int deliveryFee = orderResult.getDeliveryFee();
-        outputView.printDeliveryFee(deliveryFee);
-
+    private void displayServiceMenu(ServiceMenu orderService) {
         ServiceResponse response = orderService.createResponse();
+
         if (orderService.hasServiceQuantity()) {
             outputView.printServiceMenu(response);
         }
+    }
 
-        int finalAmount = orderResult.calculateFinalAmount();
-        outputView.printFinalAmount(finalAmount);
+    private void displayDeliveryFee(OrderResult orderResult) {
+        int deliveryFee = orderResult.getDeliveryFee();
+        outputView.printDeliveryFee(deliveryFee);
+    }
 
-        inputView.closeScanner();
+    private void displayTotalAmount(OrderResult orderResult) {
+        int totalAmount = orderResult.getTotalAmount();
+        outputView.printTotalAmount(totalAmount);
+    }
+
+    private void displayOrderDetails(Orders orders) {
+        List<OrderResponse> responses = orders.toOrderResponses();
+        outputView.printOrderDetails(responses);
+    }
+
+    private ServiceMenu generateServiceMenu(Orders orders) {
+        int quantity = orders.getTotalMainMenuQuantity();
+        return new ServiceMenu(quantity);
+    }
+
+    private OrderResult generateOrderResult(Orders orders) {
+        int totalAmount = orders.getTotalAmount();
+        return new OrderResult(totalAmount);
+    }
+
+    private Orders generateOrders() {
+        String orderInput = inputView.readOrderMenu();
+        List<Order> parsedOrders = OrderInputParser.parseOrderInput(orderInput);
+
+        return new Orders(parsedOrders);
     }
 }
