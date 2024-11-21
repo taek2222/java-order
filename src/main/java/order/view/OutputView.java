@@ -1,5 +1,15 @@
 package order.view;
 
+import static order.global.constant.ViewMessage.NEW_LINE;
+import static order.global.constant.ViewMessage.OUTPUT_DELIVERY_FEE_MESSAGE;
+import static order.global.constant.ViewMessage.OUTPUT_FINAL_RESULT_PRICE_HEADER;
+import static order.global.constant.ViewMessage.OUTPUT_FINAL_RESULT_PRICE_MESSAGE;
+import static order.global.constant.ViewMessage.OUTPUT_ORDER_INFO_FORMAT;
+import static order.global.constant.ViewMessage.OUTPUT_ORDER_INFO_HEADER;
+import static order.global.constant.ViewMessage.OUTPUT_SERVICE_MENU_HEADER;
+import static order.global.constant.ViewMessage.OUTPUT_SERVICE_MENU_MESSAGE;
+import static order.global.constant.ViewMessage.OUTPUT_TOTAL_AMOUNT_MESSAGE;
+
 import java.text.DecimalFormat;
 import java.util.List;
 import order.domain.dto.OrderResponse;
@@ -9,42 +19,45 @@ public class OutputView {
     private static final DecimalFormat PRICE_FORMAT = new DecimalFormat("###,###");
 
     public void printOrdersInfo(List<OrderResponse> orderResponses) {
-        System.out.println();
-        System.out.println("[주문 내역]");
+        newLine();
+        System.out.println(OUTPUT_ORDER_INFO_HEADER.get());
         orderResponses.forEach(this::printOrderInfo);
     }
 
     public void printAmount(int amount) {
-        String format = PRICE_FORMAT.format(amount);
-        System.out.printf("총 주문 금액: %s원", format);
-        System.out.println();
+        System.out.printf(OUTPUT_TOTAL_AMOUNT_MESSAGE.get(priceFormat(amount)));
+        newLine();
     }
 
     public void printDeliveryFee(int deliveryFee) {
-        String format = PRICE_FORMAT.format(deliveryFee);
-        System.out.printf("배달비: %s원", format);
-        System.out.println();
+        System.out.printf(OUTPUT_DELIVERY_FEE_MESSAGE.get(priceFormat(deliveryFee)));
+        newLine();
     }
 
     public void printServiceMenu(int quantity) {
-        System.out.println();
-        System.out.println("[서비스]");
-        System.out.printf("서비스 만두(%d개)", quantity);
-        System.out.println();
+        newLine();
+        System.out.println(OUTPUT_SERVICE_MENU_HEADER.get());
+        System.out.printf(OUTPUT_SERVICE_MENU_MESSAGE.get(quantity));
+        newLine();
     }
 
     public void printFinalResultPrice(int price) {
-        System.out.println();
-        String format = PRICE_FORMAT.format(price);
-        System.out.println("[최종 결제 금액]");
-        System.out.printf("%s원", format);
+        newLine();
+        System.out.println(OUTPUT_FINAL_RESULT_PRICE_HEADER.get());
+        System.out.printf(OUTPUT_FINAL_RESULT_PRICE_MESSAGE.get(priceFormat(price)));
     }
 
     private void printOrderInfo(OrderResponse orderResponse) {
-        String price = PRICE_FORMAT.format(orderResponse.price());
-        String format = "%s(%d개): %s원";
+        System.out.printf(OUTPUT_ORDER_INFO_FORMAT.get(orderResponse.menuName(), orderResponse.quantity(),
+                priceFormat(orderResponse.price())));
+        newLine();
+    }
 
-        System.out.printf(format, orderResponse.menuName(), orderResponse.quantity(), price);
-        System.out.println();
+    private static String priceFormat(int amount) {
+        return PRICE_FORMAT.format(amount);
+    }
+
+    private void newLine() {
+        System.out.print(NEW_LINE.get());
     }
 }
